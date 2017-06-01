@@ -1,0 +1,227 @@
+
+:toc:               left
+:toc-title:         Connector Summary
+:toclevels:         2
+:last-update-label!:
+:docinfo:
+:source-highlighter: coderay
+:icons: font
+
+
+= CDCSoftware Connector API Reference
+
+
+*Additional Info*
+[width="50", cols=".<60%,^40%" ]
+|======================
+| Requires Mule Enterprise License |  No icon:remove[]  {nbsp}
+| Requires Entitlement |  No icon:remove[]  {nbsp}
+| Mule Version | 3.5.0 or higher
+|======================
+
+
+== Configs
+---
+=== Configuration
+`<cdc-software:config>`
+
+
+
+`Configuration` 
+
+
+==== Attributes
+[cols=".^20%,.^20%,.^35%,.^20%,^.^5%", options="header"]
+|======================
+| Name | Java Type | Description | Default Value | Required
+|name | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | The name of this configuration. With this name can be later referenced. | | *x*{nbsp}
+| domain | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++domain URL  (Ex: https://myserver)+++ |   | *x*{nbsp}
+| serverId | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++serverId (Ex: prod, test)+++ |   | *x*{nbsp}
+| user | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++user+++ |   | *x*{nbsp}
+| password | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++password+++ |   | *x*{nbsp}
+|======================
+
+
+
+== Processors
+
+---
+
+=== Release call
+`<cdc-software:release-call>`
+
+
+
+
++++
+releaseCall
++++
+
+
+    
+        
+==== Attributes
+[cols=".^20%,.^20%,.^35%,.^20%,^.^5%", options="header"]
+|======================
+|Name |Java Type | Description | Default Value | Required
+| config-ref | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | Specify which config to use | |*x*{nbsp}
+
+
+
+| 
+call  | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++the callId to answer+++ |  | *x*{nbsp}
+
+
+
+
+| 
+agentInstrument  | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++the extension used by agent+++ |  | *x*{nbsp}
+
+
+|======================
+
+==== Returns
+[cols=".^40%,.^60%", options="header"]
+|======================
+|Return Java Type | Description
+|+++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++OK if succesfull or error message+++
+|======================
+
+
+
+
+---
+
+=== Answer call
+`<cdc-software:answer-call>`
+
+
+
+
++++
+answerCall
++++
+
+
+    
+        
+==== Attributes
+[cols=".^20%,.^20%,.^35%,.^20%,^.^5%", options="header"]
+|======================
+|Name |Java Type | Description | Default Value | Required
+| config-ref | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | Specify which config to use | |*x*{nbsp}
+
+
+
+| 
+call  | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++the callId to answer+++ |  | *x*{nbsp}
+
+
+
+
+| 
+agentInstrument  | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++the extension used by agent+++ |  | *x*{nbsp}
+
+
+|======================
+
+==== Returns
+[cols=".^40%,.^60%", options="header"]
+|======================
+|Return Java Type | Description
+|+++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++OK if succesfull or error message+++
+|======================
+
+
+
+
+---
+
+=== Make call
+`<cdc-software:make-call>`
+
+
+
+
++++
+makeCall
++++
+
+
+    
+        
+==== Attributes
+[cols=".^20%,.^20%,.^35%,.^20%,^.^5%", options="header"]
+|======================
+|Name |Java Type | Description | Default Value | Required
+| config-ref | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | Specify which config to use | |*x*{nbsp}
+
+
+
+| 
+agentId  | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++the agent Id placing the call+++ |  | *x*{nbsp}
+
+
+
+
+| 
+phoneNumber  | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++the phone number to dial+++ |  | *x*{nbsp}
+
+
+|======================
+
+==== Returns
+[cols=".^40%,.^60%", options="header"]
+|======================
+|Return Java Type | Description
+|+++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++OK if succesfull or error message+++
+|======================
+
+
+
+
+
+
+
+== Sources
+
+---
+
+=== Get events
+`<cdc-software:get-events>`
+
+
+
+
++++
+getEvents
++++
+
+
+    
+
+==== Attributes
+[cols=".^20%,.^20%,.^35%,.^20%,^.^5%", options="header"]
+|======================
+|Name |Java Type | Description | Default Value | Required
+| config-ref | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | Specify which config to use | |*x*{nbsp}
+| callback | +++SourceCallback+++ | +++The sourcecallback used to dispatch message to the flow+++ |  | *x*{nbsp}
+|======================
+
+==== Returns
+[cols=".^40%,.^60%", options="header"]
+|======================
+|Return Java Type | Description
+|+++void+++ | ++++++
+|======================
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<namespace xmlns="http://www.mulesoft.org/schema/mule/tooling.attributes" xmlns:mule="http://www.mulesoft.org/schema/mule/core" url="http://www.mulesoft.org/schema/mule/cdc-software" prefix="cdc-software">
+  <global-cloud-connector versions="[3.5.0,8.0.0]" caption="CDCSoftware" description="" icon="" localId="parentConfig" image="" abstract="true" extends="http://www.mulesoft.org/schema/mule/cdc-software/abstractCdc-softwareConnectorGeneric"></global-cloud-connector>
+  <cloud-connector-message-source supportsInbound="true" supportsOutbound="false" versions="[3.5.0,8.0.0]" caption="CDCSoftware (Streaming)" description="" icon="icons/theme.classic/cdc-software-endpoint-small.png" localId="endpoint" image="icons/theme.classic/cdc-software-endpoint-large.png" abstract="false" extends="http://www.mulesoft.org/schema/mule/cdc-software/abstractCdc-softwareConnectorGeneric">
+    <attribute-category caption="General" description="General.">
+      <group id="cdc-softwareConnectorGeneric" caption="Basic Settings">
+        <modeSwitch alwaysCombo="true" name="Cdc-software operations to execute" caption="Operation" description="Operation.">
+          <no-operation abstractElement="http://www.mulesoft.org/schema/mule/cdc-software/abstractCdc-softwareConnectorGeneric" versions="[3.5.0,8.0.0]" connector-name="source"></no-operation>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cdc-software/get-events" modeLabel="Get events"></mode>
+        </modeSwitch>
+      </group>
+    </attribute-category>
+  </cloud-connector-message-source>
+  <cloud-connector-message-source supportsInbound="true" supportsOutbound="false" inboundLocalName="get-events" caption="Get Events" description="GetEvents." icon="icons/theme.classic/cdc-software-endpoint-small.png" localId="get-events" image="icons/theme.classic/cdc-software-endpoint-large.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cdc-software/abstractCdc-softwareConnectorGeneric">
+    <attribute-category caption="General" description="General."></attribute-category>
+  </cloud-connector-message-source>
+  <global-cloud-connector versions="[3.5.0,8.0.0]" caption="CDCSoftware: Configuration" description="Global Configuration configuration information." icon="icons/theme.classic/cdc-software-connector-small.png" localId="config" image="icons/theme.classic/cdc-software-connector-large.png" abstract="false" extends="http://www.mulesoft.org/schema/mule/cdc-software/parentConfig" connectivityTesting="off" metaData="static" metaDataKeyDisplay="DISPLAY_NAME" supportsUserDefinedMetaData="false">
+    <attribute-category caption="General" description="Cdc-software configuration properties.">
+      <group id="cdc-softwareGenericProperties" caption="Basic Settings">
+        <name name="name" caption="Name" description="Give a name to this configuration so it can be later referenced by config-ref." required="true"></name>
+      </group>
+    </attribute-category>
+    <attribute-category caption="Server" description="Server.">
+      <group id="server settings" caption="Server settings">
+        <string name="domain" caption="Domain" description="Domain URL  (Ex: https://myserver)." supportsExpressions="false" required="true" javaType="java.lang.String"></string>
+        <string name="serverId" caption="Server Id" description="ServerId (Ex: prod, test)." supportsExpressions="false" required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+    <attribute-category caption="Security" description="Security.">
+      <group id="security settings" caption="Security settings">
+        <string name="user" caption="User" description="User." supportsExpressions="false" required="true" javaType="java.lang.String"></string>
+        <password name="password" caption="Password" description="Password." supportsExpressions="false" required="true" javaType="java.lang.String"></password>
+      </group>
+    </attribute-category>
+  </global-cloud-connector>
+  <cloud-connector caption="Abstractcdc-softwareconnectorgeneric" description="Interact with Cdc-software." icon="icons/theme.classic/cdc-software-connector-small.png" localId="abstractCdc-softwareConnectorGeneric" image="icons/theme.classic/cdc-software-connector-large.png" abstract="true">
+    <attribute-category caption="General" description="General.">
+      <group id="abstractCdc-softwareConnectorGeneric" caption="Basic Settings">
+        <globalRef requiredType="http://www.mulesoft.org/schema/mule/cdc-software/config" name="config-ref" caption="Connector Configuration" description="Specify which configuration to use for this invocation." required="true"></globalRef>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector versions="[3.5.0,8.0.0]" aliasId="org.mule.tooling.ui.modules.core.pattern.cdc-software" caption="CDCSoftware" description="" icon="icons/theme.classic/cdc-software-connector-small.png" localId="cdc-software-connector" image="icons/theme.classic/cdc-software-connector-large.png" extends="http://www.mulesoft.org/schema/mule/cdc-software/abstractCdc-softwareConnectorGeneric">
+    <attribute-category caption="General" description="General.">
+      <group id="cdc-softwareConnectorGeneric" caption="Basic Settings">
+        <modeSwitch alwaysCombo="true" name="Cdc-software operations to execute" caption="Operation" description="Operation.">
+          <no-operation abstractElement="http://www.mulesoft.org/schema/mule/cdc-software/abstractCdc-softwareConnectorGeneric" versions="[3.5.0,8.0.0]" connector-name="processor"></no-operation>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cdc-software/answer-call" modeLabel="Answer call"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cdc-software/make-call" modeLabel="Make call"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cdc-software/release-call" modeLabel="Release call"></mode>
+        </modeSwitch>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.lang.String" caption="Answer Call" icon="icons/theme.classic/cdc-software-connector-small.png" localId="answer-call" image="icons/theme.classic/cdc-software-connector-large.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cdc-software/abstractCdc-softwareConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="agentInstrument" caption="Agent Instrument" description="The extension used by agent." required="true" javaType="java.lang.String"></string>
+        <string name="call" caption="Call" description="The callId to answer." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.lang.String" caption="Make Call" icon="icons/theme.classic/cdc-software-connector-small.png" localId="make-call" image="icons/theme.classic/cdc-software-connector-large.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cdc-software/abstractCdc-softwareConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="agentId" caption="Agent Id" description="The agent Id placing the call." required="true" javaType="java.lang.String"></string>
+        <string name="phoneNumber" caption="Phone Number" description="The phone number to dial." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.lang.String" caption="Release Call" icon="icons/theme.classic/cdc-software-connector-small.png" localId="release-call" image="icons/theme.classic/cdc-software-connector-large.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cdc-software/abstractCdc-softwareConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="agentInstrument" caption="Agent Instrument" description="The extension used by agent." required="true" javaType="java.lang.String"></string>
+        <string name="call" caption="Call" description="The callId to answer." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+</namespace>

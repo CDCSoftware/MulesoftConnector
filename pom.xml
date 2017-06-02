@@ -29,6 +29,12 @@
       <id>myrepos</id> 
       <url>https://github.com/CDCSoftware/MulesoftConnector/tree/release/v1.0.0</url> 
     </repository> 
+    
+    <snapshotRepository>
+      <id>snapshot</id>
+      <name> Snapshot Repository</name>
+      <url>https://github.com/CDCSoftware/MulesoftConnector/repositories/snapshots/</url>
+    </snapshotRepository>
   </distributionManagement>
 	
     <!-- 

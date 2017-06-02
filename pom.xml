@@ -24,11 +24,13 @@
 		<sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
 	</properties>
 	
+	<distributionManagement> 
+    <repository> 
+      <id>myrepos</id> 
+      <url>https://github.com/CDCSoftware/MulesoftConnector.git</url> 
+    </repository> 
+  </distributionManagement>
 	
-    <distributionManagement>
-        <downloadUrl>https://github.com/CDCSoftware/MulesoftConnector.git</downloadUrl>
-        
-    </distributionManagement>	
     <!-- 
 	<build>
 		<plugins>

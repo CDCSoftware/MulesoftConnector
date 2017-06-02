@@ -106,7 +106,7 @@
 <distributionManagement>
     <snapshotRepository>
         <id>mulesoft-snapshots</id>
-        <url>http://repository-master.mulesoft.org/releases/</url>
+        <url>http://repository-master.mulesoft.org/snapshots/</url>
         <uniqueVersion>false</uniqueVersion>
     </snapshotRepository>
     <repository>

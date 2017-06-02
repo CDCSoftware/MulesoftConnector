@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="">
+<meta name="author" content="">
+
+
+<title>CDC Connector Example</title>
+
+<link rel="stylesheet"
+	href="https://jquery-ui-bootstrap.github.io/jquery-ui-bootstrap/assets/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="css/main.css">
+
+</head>
+
+<body>
+
+
+
+	<script type="text/javascript"
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.js"></script>
+	<script type="text/javascript" src="dojo/dojo.js"></script>
+	<script type="text/javascript" src="js/mule.js"></script>
+
+	<script>
+		var eventsCount = 0;
+		var maxEvents = 100;
+
+		$(document).ready(function() {
+			$('#buttonReleaseCall').css('visibility', 'hidden');
+			$('#buttonAnswerCall').css('visibility', 'hidden');
+		});
+
+		function init() {
+
+			var object = mule.subscribe("/cdcSoftwareConnector/events", callback);
+		}
+		function callback(message) {
+			processMessage(message);
+		}
+		function processMessage(message) {
+			if (message) {
+
+				var agentId = $('#agentId').val();
+				var eventNameFilter = $('#eventNameFilter').val();
+				var agentIdFilter = $('#agentIdFilter').val();
+				var event = JSON.parse(message.data);
+
+				if (event.m_properties && event.m_properties.Properties) {
+					var properties = event.m_properties.Properties;
+
+					if (eventNameFilter
+							&& event.m_eventName.indexOf(eventNameFilter) == -1) {
+						return;
+					}
+
+					if (agentIdFilter && properties.AgentID) {
+						if (properties.AgentID != agentIdFilter) {
+							return;
+						}
+					}
+
+					//				if(properties.AgentInstrument){
+					//					$("#AgentInstrument").text(properties.AgentInstrument);
+					//				}				
+					if (properties.CallId && properties.AgentID
+							&& properties.AgentID === agentId) {
+
+						if (event.m_eventName.indexOf("ENDED") != -1
+								|| event.m_eventName.indexOf("CLEAR") != -1) {
+							setCallId(event.m_eventName,"NA");
+						} else {
+							setCallId(event.m_eventName,properties.CallId, properties);
+						}
+					}
+				}
+
+				var previous = $("#messages").html();
+				eventsCount++;
+				$('#eventsCount').text(eventsCount.toString())
+				
+				event.m_properties.Properties = sortObject(event.m_properties.Properties);
+				
+				var json = syntaxHighlight(JSON.stringify(event, undefined, 2));
+
+				var divNode = document.createElement("div");
+				divNode.innerHTML = "Event: " + event.m_eventName + "<br>"
+						+ "<pre>" + json + "</pre><br>";
+				$(divNode).attr("id", "node_" + eventsCount);
+				//frag.appendChild(divNode);
+				var messagesNode = document.getElementById("messages");
+
+				if (eventsCount > maxEvents) {
+					var first = eventsCount - maxEvents;
+					var toremove = document.getElementById("node_" + first);
+					messagesNode.removeChild(toremove);
+				}
+				if (eventsCount == 1) {
+					messagesNode.appendChild(divNode);
+
+				} else {
+					var prev = eventsCount - 1;
+					var prevNode = document.getElementById("node_" + prev);
+					messagesNode.insertBefore(divNode, prevNode);
+
+				}
+
+			}
+		}
+		
+		function getState(eventName) {
+			var state ="NA";
+			if (eventName.indexOf("_ALERTING") != -1){
+				state="Ringing";
+			}
+			
+			if (eventName.indexOf("_ANSWERED") != -1){
+				state="Talking";
+			}
+			
+			$("#CallState").text(state);
+			
+			return state;
+			
+		}
+
+		function setCallId(eventName,callId, properties) {
+			 var state = getState(eventName);
+			 
+			if (callId === 'NA') {
+				$('#buttonAnswerCall').css('visibility', 'hidden');
+				$('#buttonReleaseCall').css('visibility', 'hidden');
+			} else {
+				
+				$('#buttonReleaseCall').css('visibility', 'visible');
+				if (properties && properties.AnsweringExtension) {
+					var AgentInstrument = $("#AgentInstrument").val();
+					if (properties.ANI == AgentInstrument) {
+						$('#buttonAnswerCall').css('visibility', 'hidden');
+					}else{
+						if(state=="Ringing"){
+							$('#buttonReleaseCall').css('visibility', 'hidden');
+							$('#buttonAnswerCall').css('visibility', 'visible');
+						}else{
+							$('#buttonAnswerCall').css('visibility', 'hidden');
+						}
+					}
+				}
+
+			}
+
+			$("#CallId").text(callId);
+		}
+
+		function sortObject(o) {
+			var sorted = {}, key, a = [];
+
+			for (key in o) {
+				if (o.hasOwnProperty(key)) {
+					a.push(key);
+				}
+			}
+
+			a.sort();
+
+			for (key = 0; key < a.length; key++) {
+				sorted[a[key]] = o[a[key]];
+			}
+			return sorted;
+		}
+
+		function makeCall() {
+			var phone = $('#phone').val();
+			var agentId = $('#agentId').val();
+			var message = {
+				data : {
+					"phone" : phone,
+					"agentId" : agentId,
+					"request" : "makeCall"
+				}
+			};
+
+			mule.publish("/sofphone/request", message);
+		}
+
+		function releaseCall() {
+			var call = $("#CallId").text();
+			var AgentInstrument = $("#AgentInstrument").val();
+			var message = {
+				data : {
+					"call" : call,
+					"agentInstrument" : AgentInstrument,
+					"request" : "releaseCall"
+				}
+			};
+
+			mule.publish("/sofphone/request", message);
+		}
+
+		function answerCall() {
+			var call = $("#CallId").text();
+			var AgentInstrument = $("#AgentInstrument").val();
+			var message = {
+				data : {
+					"call" : call,
+					"agentInstrument" : AgentInstrument,
+					"request" : "answerCall"
+				}
+			};
+
+			mule.publish("/sofphone/request", message);
+		}
+		/* http://stackoverflow.com/questions/4810841/how-can-i-pretty-print-json-using-javascript*/
+		function syntaxHighlight(json) {
+			if (typeof json != 'string') {
+				json = JSON.stringify(json, undefined, 2);
+			}
+			json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(
+					/>/g, '&gt;');//.replace(/:/g, ': ');//.replace(/,/g, ',<br>');
+			return json
+					.replace(
+							/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
+							function(match) {
+								var cls = 'number';
+								if (/^"/.test(match)) {
+									if (/:$/.test(match)) {
+										cls = 'key';
+									} else {
+										cls = 'string';
+									}
+								} else if (/true|false/.test(match)) {
+									cls = 'boolean';
+								} else if (/null/.test(match)) {
+									cls = 'null';
+								}
+								return '<span class="' + cls + '">' + match
+										+ '</span>';
+							});
+		}
+	</script>
+
+	<div id="container">
+		<div class="property_box"
+			style="margin: 10px; width: 1200px; height: 250px; overflow: auto">
+
+
+			<b>SoftphoneRequestFlow Ajax Inbound channel /softphone/request <br></b>
+
+			<table>
+				<tr>
+					<td>
+
+						<div class="property_box">
+							<label style="width: 150px">Agent Id</label> <input type="text"
+								id="agentId" value="" />
+						</div>
+
+						<div class="property_box">
+							<label style="width: 150px">Agent Instrument</label> <input type="text" id="AgentInstrument" />
+						</div>
+
+
+						<div class="property_box">
+							<b>CallId</b> <span id="CallId">NA</span>&nbsp;&nbsp;<b>State</b>
+							<span id="CallState">NA</span>
+						</div>
+
+
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+
+						<div class="property_box">
+							<div>
+								<button id="buttonMakeCall" onclick="makeCall()" class="btn btn-primary">Make
+									Call</button>
+							</div>
+							<div>
+								<b>Dial number</b><input type="text" id="phone" />
+							</div>
+						</div>
+
+
+						<div class="property_box">
+							<button id="buttonAnswerCall" onclick="answerCall()" class="btn btn-primary">Answer
+								Call</button>
+						</div>
+
+
+
+						<div class="property_box">
+							<button id="buttonReleaseCall" onclick="releaseCall()" class="btn btn-danger">Release
+								Call</button>
+						</div>
+
+
+					</td>
+				</tr>
+
+			</table>
+
+
+
+		</div>
+
+
+
+		<div class="property_box"
+			style="margin: 10px; width: 1200px; height: 1200px; overflow: auto">
+
+			<b>DTKEventFlow Ajax Events from /cdcSoftwareConnector/events channel<br></b>
+
+			<div class="property_box">
+				<b>Event Name Filter Contains</b> <input type="text"
+					id="eventNameFilter" value="CALL" />
+			</div>
+
+			<div class="property_box">
+				<b>AgentId Filter</b> <input type="text" id="agentIdFilter" value="" />
+			</div>
+
+
+			<div class="property_box">
+				<button id="buttonClear"
+					onclick="$('#messages').html('');eventsCount=0;$('#eventsCount').text('0')">Clear</button>
+				&nbsp;Events <span id="eventsCount">0</span>
+			</div>
+
+			<div class="property_box" style="width: 100%">
+				<label for="messages">Last 100 events</label>
+				<div class="property_box" id="messages"
+					style="width: 1100px; height: 800px; overflow: auto"></div>
+			</div>
+
+
+
+		</div>
+
+	</div>
+
+</body>
+
+
+
+</html>

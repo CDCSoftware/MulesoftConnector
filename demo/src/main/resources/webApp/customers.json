@@ -1,0 +1,6 @@
+{
+	users[
+		{"name":"Joe"},
+		{"name":"Peter"}
+	]
+}

@@ -27,7 +27,7 @@
 	<distributionManagement> 
     <repository> 
       <id>myrepos</id> 
-      <url>https://github.com/CDCSoftware/MulesoftConnector.git</url> 
+      <url>https://github.com/CDCSoftware/MulesoftConnector/tree/release/v1.0.0</url> 
     </repository> 
   </distributionManagement>
 	

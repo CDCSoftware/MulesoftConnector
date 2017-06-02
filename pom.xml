@@ -27,7 +27,7 @@
 	
     <distributionManagement>
         <downloadUrl>https://github.com/CDCSoftware/MulesoftConnector.git</downloadUrl>
-        <status>deployed</status>
+        
     </distributionManagement>	
     <!-- 
 	<build>

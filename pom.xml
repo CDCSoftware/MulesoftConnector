@@ -104,15 +104,16 @@
 	</repositories>
 	-->
 <distributionManagement>
-    <repository>
-        <id>mulesoft-releases</id>
-        <url>http://repository-master.mulesoft.org/releases/</url>
-    </repository>
     <snapshotRepository>
         <id>mulesoft-snapshots</id>
         <url>http://repository-master.mulesoft.org/releases/</url>
         <uniqueVersion>false</uniqueVersion>
     </snapshotRepository>
+    <repository>
+        <id>mulesoft-releases</id>
+        <url>http://repository-master.mulesoft.org/releases/</url>
+    </repository>
+
 </distributionManagement>	
 	
 	

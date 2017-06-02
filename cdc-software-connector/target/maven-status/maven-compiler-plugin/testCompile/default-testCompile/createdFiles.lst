@@ -1,0 +1,9 @@
+org\mule\modules\cdcsoftware\automation\functional\DTKEventTest.class
+org\mule\modules\cdcsoftware\automation\runner\AbstractCDCSoftwareTest.class
+org\mule\modules\cdcsoftware\automation\functional\AnswerCallTest.class
+org\mule\modules\cdcsoftware\automation\functional\MakeCallTest.class
+org\mule\modules\cdcsoftware\automation\functional\CDCSoftwareConnectorTest.class
+org\mule\modules\cdcsoftware\automation\runner\FunctionalTestSuite.class
+org\mule\modules\cdcsoftware\automation\functional\CDCSoftwareTestCases.class
+org\mule\modules\cdcsoftware\automation\functional\ReleaseCallTest.class
+org\mule\modules\cdcsoftware\automation\functional\DTKPropertiesTest.class

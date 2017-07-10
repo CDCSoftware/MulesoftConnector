@@ -14,17 +14,7 @@
 	    <artifactId>certified-mule-connector-parent</artifactId>
 	    <version>3.9.1</version>
 	</parent>
-	
 
-	
-	<!-- 
-	<parent>
-		<groupId>org.mule.tools.devkit</groupId>
-		<artifactId>mule-devkit-parent</artifactId>
-		<version>3.9.0</version>
-	</parent>
-    -->
-    
 	<properties>
 		<category>Certified</category>
 		<licensePath>LICENSE.md</licensePath>
@@ -34,43 +24,6 @@
 		<sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
 		<ctf.connector.class>org.mule.modules.cdcsoftware.CDCSoftwareConnector</ctf.connector.class>
 	</properties>
-<!-- 	comment
-	<distributionManagement> 
-    <repository> 
-      <id>myrepos</id> 
-      <url>https://github.com/CDCSoftware/MulesoftConnector/tree/release/v1.0.0</url> 
-    </repository> 
-    
-    <snapshotRepository>
-      <id>snapshot</id>
-      <name> Snapshot Repository</name>
-      <url>https://github.com/CDCSoftware/MulesoftConnector/repositories/snapshots/</url>
-    </snapshotRepository>
-  </distributionManagement>
--->	
-    <!-- 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.7.0.201403182114</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<destFile>${sonar.jacoco.reportPath}</destFile>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-    -->
-    
-    
     
 	<dependencies>
 		<dependency>
@@ -126,31 +79,38 @@
     </build>
 	
 	 
-    <!-- 
-	<repositories>
-		<repository>
-			<id>mulesoft-releases</id>
-			<name>MuleSoft Releases Repository</name>
-			<url>http://repository.mulesoft.org/releases/</url> 
-			<url>http://repository-master.mulesoft.org/releases/</url>
-			<layout>default</layout>
-		</repository>
-		
-		
-	</repositories>
-	-->
-<distributionManagement>
-    <snapshotRepository>
-        <id>mulesoft-snapshots</id>
-        <url>http://repository-master.mulesoft.org/snapshots/</url>
-        <uniqueVersion>false</uniqueVersion>
-    </snapshotRepository>
-    <repository>
-        <id>mulesoft-releases</id>
-        <url>http://repository-master.mulesoft.org/releases/</url>
-    </repository>
+	
+    <repositories>
+        <repository>
+            <id>mulesoft-releases</id>
+            <name>MuleSoft Releases Repository</name>
+            <url>http://repository.mulesoft.org/releases</url>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>mulesoft-snapshots</id>
+            <name>MuleSoft Snapshots Repository</name>
+            <url>http://repository.mulesoft.org/snapshots</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
 
-</distributionManagement>	
+
+	<distributionManagement>
+	    <repository>
+	        <id>mule-ee-releases</id>
+	        <name>MuleEE Releases Repository</name>
+	        <url>https://repository-master.mulesoft.org/nexus/content/repositories/releases-ee/</url>
+	    </repository>
+	    <snapshotRepository>
+	        <id>mule-ee-snapshots</id>
+	        <name>MuleEE Snapshots Repository</name>
+	        <url>https://repository-master.mulesoft.org/nexus/content/repositories/ci-snapshots/</url>
+	        <uniqueVersion>false</uniqueVersion>
+	    </snapshotRepository>
+	</distributionManagement>
+
+	
 	
 	
 </project>

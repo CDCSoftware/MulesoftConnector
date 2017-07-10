@@ -16,7 +16,7 @@ import org.mule.modules.cdcsoftware.CDCSoftwareConnector;
 import org.mule.modules.cdcsoftware.automation.runner.AbstractCDCSoftwareTest;
 
 
-public class CDCSoftwareConnectorTest extends AbstractCDCSoftwareTest {
+public class CDCSoftwareConnectorIT extends AbstractCDCSoftwareTest {
 	
     private static final String RETRIEVE_EVENTS_SOURCE = "getEvents";
 

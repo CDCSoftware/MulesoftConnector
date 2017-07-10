@@ -15,30 +15,40 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.mule.modules.cdcsoftware.CDCSoftwareConnector;
+import org.mule.modules.cdcsoftware.DTKEvent;
 import org.mule.modules.cdcsoftware.DTKProperties;
 import org.mule.tools.devkit.ctf.junit.AbstractTestCase;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 
-public class DTKPropertiesTest {
+
+public class DTKEventIT {
 
 
     
-	public DTKPropertiesTest() {
+	public DTKEventIT() {
 		
 	}
 	
 	
 	@org.junit.Test
 	public void verify() {
+		
 		DTKProperties prop = new DTKProperties();
 		Map<String, Object> properties = new HashMap<String, Object>();
-		properties.put("event", "DTK_EVENT");
+		properties.put("callId", "100");
 		prop.setProperties(properties);
 		
-		String event  = (String) prop.getProperties().get("event");
 		
-		assertEquals("DTK_EVENT", event);
+		DTKEvent dtkEvent = new DTKEvent();
+		dtkEvent.setEventName("DTK_EVENT");
+		dtkEvent.setProperties(prop);
+
+		Gson gsonBuilder = new GsonBuilder().create();
+		String body = gsonBuilder.toJson(dtkEvent);
+		assertEquals("{\"m_eventName\":\"DTK_EVENT\",\"m_properties\":{\"Properties\":{\"callId\":\"100\"}}}", body);
 		
 
 	}

@@ -1,30 +1,24 @@
 package org.mule.modules.cdcsoftware.automation.functional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
+import static org.mockserver.integration.ClientAndServer.startClientAndServer;
+import static org.mockserver.model.HttpRequest.request;
+import static org.mockserver.model.HttpResponse.response;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockserver.client.server.MockServerClient;
 import org.mockserver.integration.ClientAndServer;
-import static org.mockserver.integration.ClientAndServer.startClientAndServer;
-import static org.mockserver.model.HttpRequest.request;
-import static org.mockserver.model.HttpResponse.response;
-
 import org.mule.modules.cdcsoftware.CDCSoftwareConnector;
-import org.mule.mvel2.ast.AssertNode;
 import org.mule.tools.devkit.ctf.junit.AbstractTestCase;
 
+public class MakeCallIT extends AbstractTestCase<CDCSoftwareConnector> {
 
-
-public class AnswerCallTest extends AbstractTestCase<CDCSoftwareConnector> {
-
-
-    
-	public AnswerCallTest() {
+	public MakeCallIT() {
 		super(CDCSoftwareConnector.class);
 	}
-	
+
 	private ClientAndServer mockServer;
 	
 	@Before
@@ -37,8 +31,7 @@ public class AnswerCallTest extends AbstractTestCase<CDCSoftwareConnector> {
 	    mockServer.stop();
 	}
 	
-	//@Test
-	@org.junit.Test
+	@Test
 	public void verify() {
 		
 		new MockServerClient("127.0.0.1", 1080)
@@ -53,12 +46,10 @@ public class AnswerCallTest extends AbstractTestCase<CDCSoftwareConnector> {
                         .withBody("Message sent")
         );
 		
-		
 		java.lang.String expected = CDCSoftwareConnector.OK;
-		java.lang.String call = "100";
-		java.lang.String agentInstrument = "12345";
-		assertEquals(getConnector().answerCall(call, agentInstrument), expected);
-		
+		java.lang.String agentId = "100";
+		java.lang.String phoneNumber = "8005551234";
+		assertEquals(getConnector().makeCall(agentId, phoneNumber), expected);
 	}
 
 }

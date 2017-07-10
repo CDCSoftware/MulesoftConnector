@@ -13,9 +13,9 @@ import org.mockserver.integration.ClientAndServer;
 import org.mule.modules.cdcsoftware.CDCSoftwareConnector;
 import org.mule.tools.devkit.ctf.junit.AbstractTestCase;
 
-public class MakeCallTest extends AbstractTestCase<CDCSoftwareConnector> {
+public class ReleaseCallIT extends AbstractTestCase<CDCSoftwareConnector> {
 
-	public MakeCallTest() {
+	public ReleaseCallIT() {
 		super(CDCSoftwareConnector.class);
 	}
 
@@ -45,11 +45,10 @@ public class MakeCallTest extends AbstractTestCase<CDCSoftwareConnector> {
                         .withStatusCode(200)
                         .withBody("Message sent")
         );
-		
 		java.lang.String expected = CDCSoftwareConnector.OK;
-		java.lang.String agentId = "100";
-		java.lang.String phoneNumber = "8005551234";
-		assertEquals(getConnector().makeCall(agentId, phoneNumber), expected);
+		java.lang.String call = "100";
+		java.lang.String agentInstrument = "1234";
+		assertEquals(getConnector().releaseCall(call, agentInstrument), expected);
 	}
 
 }

@@ -7,15 +7,23 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 import org.mule.modules.cdcsoftware.CDCSoftwareConnector;
-import org.mule.modules.cdcsoftware.automation.functional.AnswerCallTest;
-import org.mule.modules.cdcsoftware.automation.functional.MakeCallTest;
-import org.mule.modules.cdcsoftware.automation.functional.ReleaseCallTest;
+import org.mule.modules.cdcsoftware.automation.functional.AnswerCallIT;
+import org.mule.modules.cdcsoftware.automation.functional.CDCSoftwareConnectorIT;
+import org.mule.modules.cdcsoftware.automation.functional.DTKEventIT;
+import org.mule.modules.cdcsoftware.automation.functional.DTKPropertiesIT;
+import org.mule.modules.cdcsoftware.automation.functional.MakeCallIT;
+import org.mule.modules.cdcsoftware.automation.functional.ReleaseCallIT;
 import org.mule.tools.devkit.ctf.mockup.ConnectorTestContext;
 
 @RunWith(Suite.class)
 @SuiteClasses({
 
-	 AnswerCallTest.class,MakeCallTest.class,ReleaseCallTest.class })
+	 AnswerCallIT.class,
+	 CDCSoftwareConnectorIT.class,
+	 DTKEventIT.class,
+	 DTKPropertiesIT.class,
+	 MakeCallIT.class,
+	 ReleaseCallIT.class })
 
 public class FunctionalTestSuite {
 

@@ -1,3 +1,4 @@
+/*
 package org.mule.modules.cdcsoftware.automation.runner;
 
 import java.util.Date;
@@ -30,3 +31,4 @@ public class AbstractCDCSoftwareTest extends AbstractTestCase<CDCSoftwareConnect
     	System.out.print("Make Sonar happy!");
     }
 }
+*/

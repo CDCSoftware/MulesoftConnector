@@ -1,4 +1,4 @@
-/*
+
 package org.mule.modules.cdcsoftware.automation.runner;
 
 import org.junit.AfterClass;
@@ -31,4 +31,3 @@ public class FunctionalTestSuite {
 	}
 
 }
-*/

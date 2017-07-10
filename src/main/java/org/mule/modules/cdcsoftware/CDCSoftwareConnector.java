@@ -44,7 +44,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 @RequiresEnterpriseLicense(allowEval = true)
-@Connector(name = "cdc-software", friendlyName = "CDCSoftware")
+@Connector(name = "cdc-software", friendlyName = "CDCSoftware",minMuleVersion="3.6.2")
 public class CDCSoftwareConnector {
 
 	public static final String GZIP = "gzip";

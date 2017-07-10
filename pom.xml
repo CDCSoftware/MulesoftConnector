@@ -8,13 +8,16 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>mule-module</packaging>
 	<name>Mule CDCSoftware Anypoint Connector</name>
-
+ 
 	<parent>
 	    <groupId>org.mule.tools.devkit</groupId>
 	    <artifactId>certified-mule-connector-parent</artifactId>
 	    <version>3.9.1</version>
 	</parent>
-	<!--
+	
+
+	
+	<!-- 
 	<parent>
 		<groupId>org.mule.tools.devkit</groupId>
 		<artifactId>mule-devkit-parent</artifactId>
@@ -23,7 +26,7 @@
     -->
     
 	<properties>
-		<category>Community</category>
+		<category>Certified</category>
 		<licensePath>LICENSE.md</licensePath>
 		<devkit.studio.package.skip>false</devkit.studio.package.skip>
 		<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>

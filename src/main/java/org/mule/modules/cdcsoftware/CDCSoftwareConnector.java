@@ -32,6 +32,7 @@ import org.mule.api.annotations.Config;
 import org.mule.api.annotations.Connector;
 import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.Source;
+import org.mule.api.annotations.licensing.RequiresEnterpriseLicense;
 import org.mule.api.callback.SourceCallback;
 import org.mule.modules.cdcsoftware.config.ConnectorConfig;
 

@@ -71,10 +71,9 @@ public class CDCSoftwareConnector {
 	@Config
 	ConnectorConfig config;
 
-	private String makeRequest(String event,DTKProperties properties) {
+	private boolean makeRequest(String event,DTKProperties properties) throws Exception {
 
-		String result;
-		try {
+		boolean result;
 
 			DTKEvent dtkEvent = new DTKEvent();
 			dtkEvent.setEventName(event);
@@ -87,15 +86,10 @@ public class CDCSoftwareConnector {
 
 			String message = doHTTP("POST",postUrl, 25, body);
 			if (message != null) {
-				result = OK;
+				result = true;
 			} else {
-				result = NO_RESPONSE;
+				throw new Exception( "HTTP Request for POSt operation to URL:"+postUrl+" and body="+body+" returned: "+NO_RESPONSE);
 			}
-		} catch (Exception e) {
-			String message = String.format(ERROR_ON_REQUEST, event, e);
-			result = message;
-			logger.error(message, e);
-		}
 
 		return result;
 
@@ -110,8 +104,14 @@ public class CDCSoftwareConnector {
 	
 
 	@Processor
-	public String releaseCall(String call, String agentInstrument) {
+	public boolean releaseCall(String call, String agentInstrument) throws Exception{
 			DTKProperties properties = new DTKProperties();
+			
+			if(call==null){
+				throw new Exception("DTK_PROPERTY_CALL is required parameter.");
+			}
+			
+			
 			properties.getProperties().put(DTK_PROPERTY_CALL, call);
 			properties.getProperties().put(DTK_PROPERTY_AGENT_INSTRUMENT, agentInstrument);
 
@@ -129,11 +129,11 @@ public class CDCSoftwareConnector {
      */
 	
 	@Processor
-	public String answerCall(String call, String agentInstrument) throws DTKRequestException {
+	public boolean answerCall(String call, String agentInstrument) throws Exception {
 		
 			DTKProperties properties = new DTKProperties();
 			if(call==null){
-				throw new DTKRequestException("DTK_PROPERTY_CALL is required parameter.");
+				throw new Exception("DTK_PROPERTY_CALL is required parameter.");
 			}
 			properties.getProperties().put(DTK_PROPERTY_CALL, call);
 			properties.getProperties().put(DTK_PROPERTY_AGENT_INSTRUMENT, agentInstrument);
@@ -151,10 +151,18 @@ public class CDCSoftwareConnector {
      */
 	
 	@Processor
-	public String makeCall(String agentId, String phoneNumber) {
+	public boolean makeCall(String agentId, String phoneNumber) throws Exception{
 
 		DTKProperties properties = new DTKProperties();
+		if(agentId==null){
+			throw new Exception("DTK_PROPERTY_TEL_AGENT_ID is required parameter.");
+		}
 		properties.getProperties().put(DTK_PROPERTY_TEL_AGENT_ID, agentId);
+		
+		if(phoneNumber==null){
+			throw new Exception("DTK_PROPERTY_PHONE_NUMBER is required parameter.");
+		}
+		
 		properties.getProperties().put(DTK_PROPERTY_PHONE_NUMBER, phoneNumber);
 		properties.getProperties().put(DTK_PROPERTY_C2C_PHONE_NUMBER, phoneNumber);
 		
@@ -315,7 +323,7 @@ public class CDCSoftwareConnector {
 	}
 
 
-	public static String getResponseAsString(InputStream is) throws IOException {
+	private static String getResponseAsString(InputStream is) throws IOException {
 		StringBuilder inputStringBuilder = new StringBuilder();
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is,UTF_8));
 		String line = bufferedReader.readLine();
@@ -326,7 +334,7 @@ public class CDCSoftwareConnector {
 		return inputStringBuilder.toString();
 	}
 
-	public String buildPostURL() {
+	private String buildPostURL() {
 		// https://cloud.cdc-tek.com/api/message?destination=topic://LENOVO.output
 		StringBuilder sb = new StringBuilder();
 		sb.append(config.getDomain());
@@ -336,7 +344,7 @@ public class CDCSoftwareConnector {
 		return sb.toString();
 	}
 
-	public String buildGetURL(String clientId) {
+	private String buildGetURL(String clientId) {
 		// "https://cloud.cdc-tek.com/api/message?readTimeout=20000&destination=topic://LENOVO.5002.input&clientId=dtk.out_3bc17590-e6a3-466d-a19d-b70d39449c99"
 		StringBuilder sb = new StringBuilder();
 		sb.append(config.getDomain());

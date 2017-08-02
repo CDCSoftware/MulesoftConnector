@@ -345,7 +345,7 @@ public class CDCSoftwareConnector {
 	}
 
 	private String buildGetURL(String clientId) {
-		// "https://cloud.cdc-tek.com/api/message?readTimeout=20000&destination=topic://LENOVO.5002.input&clientId=dtk.out_3bc17590-e6a3-466d-a19d-b70d39449c99"
+	
 		StringBuilder sb = new StringBuilder();
 		sb.append(config.getDomain());
 		sb.append("/api/message?destination=topic://");

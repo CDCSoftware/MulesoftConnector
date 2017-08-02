@@ -15,10 +15,8 @@
 
 package org.mule.modules.cdcsoftware.automation.functional;
 
-import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 import org.mule.modules.cdcsoftware.CDCSoftwareConnector;
 import org.mule.tools.devkit.ctf.junit.AbstractTestCase;
 
@@ -39,11 +37,5 @@ public class CDCSoftwareTestCases extends
 		// TODO
 	}
 
-//	@Test
-//	public void verify() {
-//		java.lang.String expected = null;
-//		java.lang.String friend = null;
-//		//assertEquals(getConnector().greet(friend), expected);
-//	}
 
 }

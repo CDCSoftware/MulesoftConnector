@@ -15,12 +15,10 @@
 
 package org.mule.modules.cdcsoftware.config;
 
+import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.components.Configuration;
 import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
-import org.mule.api.annotations.Configurable;
-import org.mule.api.annotations.param.Default;
-import org.mule.api.annotations.param.Optional;
 
 @Configuration(friendlyName = "Configuration")
 public class ConnectorConfig {
@@ -29,14 +27,14 @@ public class ConnectorConfig {
      * domain URL  (Ex: https://myserver)
      */
     @Configurable
-    @Placement(group = "Server settings", tab = "Server")
+    
     private String domain;
 
     /**
      * serverId (Ex: prod, test)
      */
     @Configurable 
-    @Placement(group = "Server settings", tab = "Server")
+    
     private String serverId;
 
 
@@ -44,14 +42,14 @@ public class ConnectorConfig {
      * user 
      */
     @Configurable 
-    @Placement(group = "Security settings", tab = "Security")
+    
     private String user;
 
     /**
      * password
      */
     @Configurable 
-    @Placement(group = "Security settings", tab = "Security")
+    
     @Password
     private String password;
 

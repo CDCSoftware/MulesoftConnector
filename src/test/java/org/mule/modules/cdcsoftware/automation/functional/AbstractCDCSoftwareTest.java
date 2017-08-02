@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package org.mule.modules.cdcsoftware.automation.runner;
+package org.mule.modules.cdcsoftware.automation.functional;
 
 import java.util.Date;
 

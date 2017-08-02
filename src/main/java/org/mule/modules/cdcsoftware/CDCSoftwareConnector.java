@@ -35,13 +35,15 @@ import org.mule.api.annotations.Source;
 import org.mule.api.annotations.licensing.RequiresEnterpriseLicense;
 import org.mule.api.callback.SourceCallback;
 import org.mule.modules.cdcsoftware.config.ConnectorConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 @RequiresEnterpriseLicense(allowEval = true)
 
-@Connector(name = "cdc-software", friendlyName = "CDCSoftware",minMuleVersion="3.6.2")
+@Connector(name = "cdc-software", friendlyName = "CDCSoftware",minMuleVersion="3.6")
 public class CDCSoftwareConnector {
 
 	public static final String GZIP = "gzip";
@@ -64,7 +66,7 @@ public class CDCSoftwareConnector {
 	public static final String DTK_PROPERTY_C2C_PHONE_NUMBER = "Click2CallPhoneNumberRequested";
 	public static final String DTK_MULE_SHUTDOWN_EVENT = "MULE_SHUTDOWN_EVENT";	
 	
-	private static final Log logger = LogFactory.getLog(CDCSoftwareConnector.class);
+	private static final  Logger logger = LoggerFactory.getLogger(CDCSoftwareConnector.class);
 	
 	private long getEventsIOErrors;
 
@@ -231,7 +233,7 @@ public class CDCSoftwareConnector {
 			Thread.sleep( (seconds * 1000));
 			
 		}catch(Exception e){
-			logger.error(e);
+			logger.error("Error trying to throttlePolling",e);
 		}
 		
 	}

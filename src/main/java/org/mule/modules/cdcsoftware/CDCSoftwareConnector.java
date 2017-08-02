@@ -40,6 +40,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 @RequiresEnterpriseLicense(allowEval = true)
+
 @Connector(name = "cdc-software", friendlyName = "CDCSoftware",minMuleVersion="3.6.2")
 public class CDCSoftwareConnector {
 
@@ -63,7 +64,6 @@ public class CDCSoftwareConnector {
 	public static final String DTK_PROPERTY_C2C_PHONE_NUMBER = "Click2CallPhoneNumberRequested";
 	public static final String DTK_MULE_SHUTDOWN_EVENT = "MULE_SHUTDOWN_EVENT";	
 	
-
 	private static final Log logger = LogFactory.getLog(CDCSoftwareConnector.class);
 	
 	private long getEventsIOErrors;
@@ -129,9 +129,12 @@ public class CDCSoftwareConnector {
      */
 	
 	@Processor
-	public String answerCall(String call, String agentInstrument) {
+	public String answerCall(String call, String agentInstrument) throws DTKRequestException {
 		
 			DTKProperties properties = new DTKProperties();
+			if(call==null){
+				throw new DTKRequestException("DTK_PROPERTY_CALL is required parameter.");
+			}
 			properties.getProperties().put(DTK_PROPERTY_CALL, call);
 			properties.getProperties().put(DTK_PROPERTY_AGENT_INSTRUMENT, agentInstrument);
  

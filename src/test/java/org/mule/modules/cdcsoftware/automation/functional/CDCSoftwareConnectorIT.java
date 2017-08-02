@@ -32,7 +32,7 @@ import org.junit.Test;
 import org.mockserver.client.server.MockServerClient;
 import org.mockserver.integration.ClientAndServer;
 import org.mule.modules.cdcsoftware.CDCSoftwareConnector;
-import org.mule.modules.cdcsoftware.automation.runner.AbstractCDCSoftwareTest;
+
 
 
 public class CDCSoftwareConnectorIT extends AbstractCDCSoftwareTest {

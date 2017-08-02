@@ -69,10 +69,10 @@ public class AnswerCallIT extends AbstractTestCase<CDCSoftwareConnector> {
         );
 		
 		
-		java.lang.String expected = CDCSoftwareConnector.OK;
+
 		java.lang.String call = "100";
 		java.lang.String agentInstrument = "12345";
-		assertEquals(getConnector().answerCall(call, agentInstrument), expected);
+		assertEquals(getConnector().answerCall(call, agentInstrument), true);
 		
 	}
 

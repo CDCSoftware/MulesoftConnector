@@ -39,11 +39,11 @@ public class CDCSoftwareTestCases extends
 		// TODO
 	}
 
-	@Test
-	public void verify() {
-		java.lang.String expected = null;
-		java.lang.String friend = null;
-		//assertEquals(getConnector().greet(friend), expected);
-	}
+//	@Test
+//	public void verify() {
+//		java.lang.String expected = null;
+//		java.lang.String friend = null;
+//		//assertEquals(getConnector().greet(friend), expected);
+//	}
 
 }

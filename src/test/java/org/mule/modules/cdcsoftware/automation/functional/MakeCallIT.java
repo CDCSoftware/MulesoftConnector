@@ -61,10 +61,9 @@ public class MakeCallIT extends AbstractTestCase<CDCSoftwareConnector> {
                         .withBody("Message sent")
         );
 		
-		java.lang.String expected = CDCSoftwareConnector.OK;
 		java.lang.String agentId = "100";
 		java.lang.String phoneNumber = "8005551234";
-		assertEquals(getConnector().makeCall(agentId, phoneNumber), expected);
+		assertEquals(getConnector().makeCall(agentId, phoneNumber), true);
 	}
 
 }

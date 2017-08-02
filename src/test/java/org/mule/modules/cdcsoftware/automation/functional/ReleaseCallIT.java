@@ -60,10 +60,10 @@ public class ReleaseCallIT extends AbstractTestCase<CDCSoftwareConnector> {
                         .withStatusCode(200)
                         .withBody("Message sent")
         );
-		java.lang.String expected = CDCSoftwareConnector.OK;
+		
 		java.lang.String call = "100";
 		java.lang.String agentInstrument = "1234";
-		assertEquals(getConnector().releaseCall(call, agentInstrument), expected);
+		assertEquals(getConnector().releaseCall(call, agentInstrument), true);
 	}
 
 }

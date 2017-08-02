@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-package org.mule.modules.cdcsoftware.automation.functional;
+package org.mule.modules.cdcsoftware.automation.unit;
 
 import static org.junit.Assert.assertEquals;
 

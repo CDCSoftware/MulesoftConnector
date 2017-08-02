@@ -58,7 +58,7 @@ public class AnswerCallIT extends AbstractTestCase<CDCSoftwareConnector> {
 	
 	//@Test
 	@org.junit.Test
-	public void verify() {
+	public void verify() throws Exception {
 		
 		new MockServerClient("127.0.0.1", 1080)
         .when(

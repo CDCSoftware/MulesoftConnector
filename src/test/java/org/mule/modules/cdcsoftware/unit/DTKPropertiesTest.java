@@ -17,35 +17,49 @@
  * limitations under the License.
  */
 
-package org.mule.modules.cdcsoftware.automation.runner;
+package org.mule.modules.cdcsoftware.automation.functional;
 
-import java.util.Date;
+import static org.junit.Assert.assertEquals;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockserver.client.server.MockServerClient;
+import org.mockserver.integration.ClientAndServer;
+import static org.mockserver.integration.ClientAndServer.startClientAndServer;
+import static org.mockserver.model.HttpRequest.request;
+import static org.mockserver.model.HttpResponse.response;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.mule.modules.cdcsoftware.CDCSoftwareConnector;
+import org.mule.modules.cdcsoftware.DTKProperties;
 import org.mule.tools.devkit.ctf.junit.AbstractTestCase;
 
-public class AbstractCDCSoftwareTest extends AbstractTestCase<CDCSoftwareConnector>{
 
-	public static final String TEST_MESSAGE = "test message";
-    public static final String USER_ID = "U03NE28RL";
-    public static final String GROUP_ID = "G03R7DHNY";
-    public static final String CHANNEL_ID = "C03NE28RY";
-    public static final String CHANNEL_RENAMING ="C04KG7XAM";
-    public static final String CHANNEL_NAME = "random";
-    public static final String ESTEBANWASINGER = "estebanwasinger";
-    public static final String DM_CHANNEL_ID = "D03NE28RN";
 
-    public AbstractCDCSoftwareTest() {
-        super(CDCSoftwareConnector.class);
-    }
+public class DTKPropertiesTest {
 
-    protected String getDateString() {
-        Date date = new Date();
-        return String.valueOf(date.getTime());
-    }
-    @Test
-    public void dummySonar(){
-    	System.out.print("Make Sonar happy!");
-    }
+
+    
+	public DTKPropertiesTest() {
+		
+	}
+	
+	
+	@org.junit.Test
+	public void verify() {
+		DTKProperties prop = new DTKProperties();
+		Map<String, Object> properties = new HashMap<String, Object>();
+		properties.put("event", "DTK_EVENT");
+		prop.setProperties(properties);
+		
+		String event  = (String) prop.getProperties().get("event");
+		
+		assertEquals("DTK_EVENT", event);
+		
+
+	}
+
 }

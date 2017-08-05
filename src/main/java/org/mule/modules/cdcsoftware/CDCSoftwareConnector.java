@@ -15,19 +15,10 @@
 
 package org.mule.modules.cdcsoftware;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.zip.GZIPInputStream;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.mule.api.annotations.Config;
 import org.mule.api.annotations.Connector;
 import org.mule.api.annotations.Processor;
@@ -46,6 +37,8 @@ import com.google.gson.GsonBuilder;
 @Connector(name = "cdc-software", friendlyName = "CDCSoftware",minMuleVersion="3.6")
 public class CDCSoftwareConnector {
 
+	public static final int  POOLING_TIMEOUT_MILLISECONDS = 20000;
+	public static final int  CONNECTIVITY_TIMEOUT_MILLISECONDS = 1000;
 	public static final String GZIP = "gzip";
 	public static final String OK = "OK";
 	public static final String NO_RESPONSE = "No response";
@@ -77,16 +70,11 @@ public class CDCSoftwareConnector {
 
 		boolean result;
 
-			DTKEvent dtkEvent = new DTKEvent();
-			dtkEvent.setEventName(event);
-			dtkEvent.setProperties(properties);
+			String body = createJSONDTKEvent(event,properties);
 
-			Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
-			String body = gsonBuilder.toJson(dtkEvent);
+			String postUrl = HTTPHelper.buildPostURL(config.getDomain(),config.getServerId(),config.connectionId());
 
-			String postUrl = buildPostURL();
-
-			String message = doHTTP("POST",postUrl, 25, body);
+			String message = HTTPHelper.doHTTP("POST",postUrl, 5, body);
 			if (message != null) {
 				result = true;
 			} else {
@@ -96,6 +84,17 @@ public class CDCSoftwareConnector {
 		return result;
 
 	}
+	
+	public static String createJSONDTKEvent(String event,DTKProperties properties){
+
+		DTKEvent dtkEvent = new DTKEvent();
+		dtkEvent.setEventName(event);
+		dtkEvent.setProperties(properties);
+
+		Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
+		return gsonBuilder.toJson(dtkEvent);
+	}
+	
     /**
      * releaseCall
      *
@@ -188,12 +187,12 @@ public class CDCSoftwareConnector {
 		this.getEventsIOErrors =0;
 		boolean run = true;
 		Gson gson= new GsonBuilder().create();
-		String getURL =buildGetURL(java.util.UUID.randomUUID().toString());
+		String getURL =HTTPHelper.buildGetURL(config.getDomain(),config.getServerId(),config.connectionId(),POOLING_TIMEOUT_MILLISECONDS);
 
 		do{
 			   String message =null; 
 				try{
-					message = doHTTP("GET",getURL, 25,null);
+					message = HTTPHelper.doHTTP("GET",getURL, 25,null);
 					this.getEventsIOErrors=0;
 					if (message != null) {
 						DTKEvent dtkEvent = gson.fromJson(message, DTKEvent.class);
@@ -239,14 +238,6 @@ public class CDCSoftwareConnector {
 	}
 	
 	private void setMuleProperties(Map<String, Object> properties,DTKEvent dtkEvent){
-		if(dtkEvent.getProperties()!=null && dtkEvent.getProperties().getProperties().containsKey("InOut")){
-			String inOut = dtkEvent.getProperties().getProperties().get("InOut").toString();
-			if("Inbound".equals(inOut)){
-				properties.put("phone", dtkEvent.getProperties().getProperties().get("From").toString());
-			}else{
-				properties.put("phone", dtkEvent.getProperties().getProperties().get("To").toString());
-			}
-		}
 		
 		for (String propertyName : dtkEvent.getProperties().getProperties().keySet()) {
 			Object propertyValue = null;
@@ -271,93 +262,6 @@ public class CDCSoftwareConnector {
 		this.config = config;
 	}
 
-	private String doHTTP(String method,String urlString, int timeout,String body) throws IOException {
 
-		String result = null;
-
-		URL url = new URL(urlString);
-
-		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
-		conn.setConnectTimeout(timeout * 1000);
-		conn.setReadTimeout(timeout * 1000);
-
-		conn.setUseCaches(false);
-		conn.setDoInput(true);
-		conn.setRequestProperty("Content-Type", TEXT_XML_UTF_8);
-		conn.setRequestProperty("Accept-Encoding",GZIP_DEFLATE);
-
-		conn.setRequestMethod(method);
-		
-		if("POST".equals(method)){
-			conn.setDoOutput(true);
-			conn.setRequestProperty("Content-Length", Integer.toString(body.getBytes(UTF_8).length));  			
-			OutputStream post = conn.getOutputStream();
-			post.write(body.getBytes("UTF-8"));
-			post.flush();
-			post.close();
-		}else{
-			conn.setDoOutput(false);
-		}
-		
-
-		int responseCode = conn.getResponseCode();
-
-		if (responseCode == 200) {
-
-			String encoding = conn.getContentEncoding();
-
-			InputStream resultingInputStream;
-
-			if (encoding != null && encoding.equalsIgnoreCase(GZIP)) {
-
-				resultingInputStream = new GZIPInputStream(conn.getInputStream());
-
-			} else {
-				resultingInputStream = conn.getInputStream();
-			}
-
-			result = getResponseAsString(resultingInputStream);
-
-		}
-
-		return result;
-	}
-
-
-	private static String getResponseAsString(InputStream is) throws IOException {
-		StringBuilder inputStringBuilder = new StringBuilder();
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is,UTF_8));
-		String line = bufferedReader.readLine();
-		while (line != null) {
-			inputStringBuilder.append(line);
-			line = bufferedReader.readLine();
-		}
-		return inputStringBuilder.toString();
-	}
-
-	private String buildPostURL() {
-		// https://cloud.cdc-tek.com/api/message?destination=topic://LENOVO.output
-		StringBuilder sb = new StringBuilder();
-		sb.append(config.getDomain());
-		sb.append("/api/message?destination=topic://");
-		sb.append(config.getServerId());
-		sb.append(".output");
-		return sb.toString();
-	}
-
-	private String buildGetURL(String clientId) {
-	
-		StringBuilder sb = new StringBuilder();
-		sb.append(config.getDomain());
-		sb.append("/api/message?destination=topic://");
-		sb.append(config.getServerId());
-		sb.append(".global.input");
-		sb.append("&readTimeout=20000");
-		sb.append("&clientId=mule_");
-		sb.append(clientId);
-
-		return sb.toString();
-	}
 
 }

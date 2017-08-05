@@ -15,43 +15,44 @@
 
 package org.mule.modules.cdcsoftware.config;
 
+import org.mule.api.ConnectionException;
+import org.mule.api.ConnectionExceptionCode;
 import org.mule.api.annotations.Configurable;
+import org.mule.api.annotations.Connect;
+import org.mule.api.annotations.ConnectionIdentifier;
+import org.mule.api.annotations.Disconnect;
+import org.mule.api.annotations.TestConnectivity;
+import org.mule.api.annotations.ValidateConnection;
 import org.mule.api.annotations.components.Configuration;
+import org.mule.api.annotations.components.ConnectionManagement;
 import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
+import org.mule.api.annotations.param.ConnectionKey;
+import org.mule.modules.cdcsoftware.CDCSoftwareConnector;
+import org.mule.modules.cdcsoftware.DTKProperties;
+import org.mule.modules.cdcsoftware.HTTPHelper;
 
-@Configuration(friendlyName = "Configuration")
+@ConnectionManagement(friendlyName = "Connection Management", configElementName = "config")
 public class ConnectorConfig {
+	
+	/* Connection Management */
+	private boolean connected = false;
+	private String clientId = null;
+	
 
-    /**
-     * domain URL  (Ex: https://myserver)
-     */
-    @Configurable
-    
-    private String domain;
+	/**
+	 * domain URL (Ex: https://myserver)
+	 */
+	@Configurable
 
-    /**
-     * serverId (Ex: prod, test)
-     */
-    @Configurable 
-    
-    private String serverId;
+	private String domain;
 
+	/**
+	 * serverId (Ex: prod, test)
+	 */
+	@Configurable
 
-    /**
-     * user 
-     */
-    @Configurable 
-    
-    private String user;
-
-    /**
-     * password
-     */
-    @Configurable 
-    
-    @Password
-    private String password;
+	private String serverId;
 
 	public String getDomain() {
 		return domain;
@@ -70,21 +71,43 @@ public class ConnectorConfig {
 	}
 
 
-	public String getUser() {
-		return user;
+	@Connect
+	@TestConnectivity
+	public void connect(@ConnectionKey String username, @Password String password) throws ConnectionException {
+
+		try {
+
+			if (connected == false) {
+				clientId = java.util.UUID.randomUUID().toString();
+			}
+
+			String postURL = HTTPHelper.buildPostURL(this.domain, this.serverId, clientId);
+
+			String body = CDCSoftwareConnector.createJSONDTKEvent("MULESOFT_TEST_CONNECTIVITY", new DTKProperties());
+			String message = HTTPHelper.doHTTP("POST", postURL, 5, body);
+			if (message == null) {
+				throw new Exception("Could not POST test message");
+			} else {
+				connected = true;
+			}
+
+		} catch (Exception e) {
+			throw new ConnectionException(ConnectionExceptionCode.CANNOT_REACH, e.getMessage(), e.getMessage(), e);
+		}
 	}
 
-	public void setUser(String user) {
-		this.user = user;
+	@Disconnect
+	public void disconnect() {
+		connected = false;
 	}
 
-	public String getPassword() {
-		return password;
+	@ValidateConnection
+	public boolean isConnected() {
+		return connected;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	@ConnectionIdentifier
+	public String connectionId() {
+		return clientId;
 	}
-    
-
 }

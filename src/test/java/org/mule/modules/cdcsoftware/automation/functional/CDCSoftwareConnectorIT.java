@@ -42,6 +42,18 @@ public class CDCSoftwareConnectorIT extends AbstractCDCSoftwareTest {
     public void setUp() throws Throwable{
     	mockServer = startClientAndServer(1080);
         Object[] signature = {null, true};
+    	new MockServerClient("127.0.0.1", 1080)
+        .when(
+                request()
+                        .withMethod("POST")
+                        .withPath("/api/message")
+        )
+        .respond(
+                response()
+                        .withStatusCode(200)
+                        .withBody("Message sent")
+        );
+        
         getDispatcher().initializeSource(RETRIEVE_EVENTS_SOURCE, signature);
     }
 
@@ -63,16 +75,7 @@ public class CDCSoftwareConnectorIT extends AbstractCDCSoftwareTest {
 		    	
     	   	
         List<Object> result = getDispatcher().getSourceMessages(RETRIEVE_EVENTS_SOURCE);
-        int x =5;
-        if(x==5){
-        	
-        }
         String event = (String) result.get(0);
-        
-        if(x==5){
-        	
-        }
-        
         assertEquals(message, event);
     }
 
@@ -83,18 +86,4 @@ public class CDCSoftwareConnectorIT extends AbstractCDCSoftwareTest {
     }	
 	
 	
-//  @org.junit.Test
-//  public void testSomeMethod() {
-//	  
-//	  CDCSoftwareConnector conn = new CDCSoftwareConnector();
-//	  ConnectorConfig cfg = new ConnectorConfig();
-//	  cfg.setDomain("http://127.0.0.1:1080");
-//	  conn.setConfig(cfg);
-//	  String url = conn.buildGetURL("test");
-//	  assertEquals(url,  "http://127.0.0.1:1080/api/message?destination=topic://null.null.input&readTimeout=20000&clientId=mule_test");
-//	  
-//	  ConnectorConfig cfg2 =conn.getConfig();
-//	  assertEquals(cfg, cfg2);
-//	  
-//  }
 }

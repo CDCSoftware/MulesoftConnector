@@ -13,10 +13,10 @@ public class CRMSimulator extends AbstractMessageTransformer{
      */
     public Object transformMessage(MuleMessage message, String outputEncoding) throws TransformerException {
 
-    	String phone =message.getProperty("phone",PropertyScope.INBOUND).toString();
+    	String userPhoneNumber =message.getProperty("UserPhoneNumber",PropertyScope.INBOUND).toString();
     	Map<String,Object> map = new HashMap<String,Object>();
     	
-    	switch (phone) {
+    	switch (userPhoneNumber) {
 			case "3055551234":
 				map.put("name", "joe");
 				map.put("email", "joe@mycompany.com");

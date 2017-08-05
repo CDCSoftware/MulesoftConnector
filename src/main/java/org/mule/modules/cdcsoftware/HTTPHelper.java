@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Base64;
 import java.util.zip.GZIPInputStream;
 
 public class HTTPHelper {
@@ -50,7 +51,7 @@ public class HTTPHelper {
 
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-		conn.setConnectTimeout(5000);
+		conn.setConnectTimeout(20000);
 		conn.setReadTimeout(timeout * 1000);
 
 		conn.setUseCaches(false);
@@ -58,6 +59,10 @@ public class HTTPHelper {
 		conn.setRequestProperty("Content-Type", TEXT_XML_UTF_8);
 		conn.setRequestProperty("Accept-Encoding",GZIP_DEFLATE);
 
+		String userpass = "username" + ":" + "password";
+		String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userpass.getBytes()));
+		conn.setRequestProperty ("Authorization", basicAuth);		
+		
 		conn.setRequestMethod(method);
 		
 		if("POST".equals(method)){

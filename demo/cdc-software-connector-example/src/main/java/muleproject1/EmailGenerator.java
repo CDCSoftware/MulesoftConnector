@@ -11,7 +11,9 @@ public class EmailGenerator extends AbstractMessageTransformer{
      */
     public Object transformMessage(MuleMessage message, String outputEncoding) throws TransformerException {
 
-    	String phone =message.getProperty("phone",PropertyScope.INBOUND).toString();
+    	String userPhoneNumber =message.getProperty("UserPhoneNumber",PropertyScope.INBOUND).toString();
+    	
+    	String callId =message.getProperty("CallId",PropertyScope.INBOUND).toString();
     	
     	String name =message.getProperty("name",PropertyScope.OUTBOUND).toString();
     	
@@ -20,7 +22,11 @@ public class EmailGenerator extends AbstractMessageTransformer{
     	sb.append(name);
     	sb.append("\r\n");
     	sb.append("We would like to thank you for your call we received from ");
-    	sb.append(phone);
+    	sb.append(userPhoneNumber);
+    	sb.append("\r\n");
+    	sb.append("Our reference number is Call Id: ");
+    	sb.append(callId);
+    	
     	
         return sb.toString();
     }

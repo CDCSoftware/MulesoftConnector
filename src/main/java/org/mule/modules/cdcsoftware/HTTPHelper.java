@@ -9,7 +9,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.zip.GZIPInputStream;
 
-import org.apache.commons.net.util.Base64;
+import org.apache.commons.codec.binary.Base64;
+
+
 
 public class HTTPHelper {
 	

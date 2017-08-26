@@ -2,7 +2,7 @@
 The Anypoint CDC Software Platform Connector provides connectivity to the CDC Software Platform, enabling you to interface with CDC Software to retrieve telephony events and perform telephony operations on any of the telephony systems supported by the CDC Platform.
 
 # Mule supported versions
-Mule 3.5.x
+Mule 3.6.x
 
 
 # Telephony systems supported

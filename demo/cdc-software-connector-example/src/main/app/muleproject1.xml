@@ -29,18 +29,11 @@ http://www.mulesoft.org/schema/mule/jetty http://www.mulesoft.org/schema/mule/je
 
 
 
-    <cdc-software:config name="CDCSoftware__Connection_Management" username="a" password="b" domain="http://192.168.1.60" serverId="LENOVO" doc:name="CDCSoftware: Connection Management"/>
+    <cdc-software:config name="CDCSoftware__Connection_Management" username="${username}" password="${password}" domain="${domain}" serverId="${serverId}" doc:name="CDCSoftware: Connection Management"/>
 
     
     <ajax:connector name="Ajax" serverUrl="http://0.0.0.0:${http.port}/" resourceBase="${app.home}/classes/webApp" jsonCommented="true" doc:name="Ajax"/>
     
-    
-    <!-- 
-    <cdc-software:config name="CDCSoftware__Cfg" username="auser" password="apwd" domain="https://cloud.cdc-tek.com" serverId="LENOVO" doc:name="CDCSoftware: Configuration">
-        <cdc-software:connection-pooling-profile initialisationPolicy="INITIALISE_ONE" exhaustedAction="WHEN_EXHAUSTED_GROW"/>
-        <reconnect/>
-    </cdc-software:config>
-    -->
 
     <flow name="SoftphoneRequesstFlow">
         <ajax:inbound-endpoint channel="/sofphone/request" connector-ref="Ajax" responseTimeout="10000" doc:name="Ajax"/>

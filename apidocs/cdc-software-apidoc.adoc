@@ -16,7 +16,7 @@
 |======================
 | Requires Mule Enterprise License |  No icon:remove[]  {nbsp}
 | Requires Entitlement |  No icon:remove[]  {nbsp}
-| Mule Version | 3.5.0 or higher
+| Mule Version | 3.6.0 or higher
 |======================
 
 

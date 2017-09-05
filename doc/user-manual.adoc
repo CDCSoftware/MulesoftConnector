@@ -36,7 +36,7 @@ Anypoint Studio.
 [[requirements]]
 == Hardware and Software Requirements
 
-To use the CDC Software Platform Connector you must have in-place an installation of the CDC Platform.  For additional system support information, visit the link:release-notes[CDC Software Platform Connector Release Notes].
+To use the CDC Software Platform Connector you must have in-place an installation of the CDC Platform.  For additional system support information, visit the link:release-notes.html[CDC Software Platform Connector Release Notes].
 
 [%header%autowidth.spread]
 |===
@@ -66,7 +66,7 @@ To use the CDC Software Platform Connector you must have in-place an installatio
 == How to Install
 
 You can install the connector in Anypoint Studio using the instructions in
-link:/getting-started/anypoint-exchange#installing-a-connector-from-anypoint-exchange[Installing a Connector from Anypoint Exchange].
+link:https://docs.mulesoft.com/getting-started/anypoint-exchange#installing-a-connector-from-anypoint-exchange[Installing a Connector from Anypoint Exchange].
 
 
 [[global-element]]
@@ -283,4 +283,4 @@ image::cdc_software_platform_smtp_013.jpg[smtp]
 
 == Resources
 
-* Access the link:./CDC_Platform_Mulesoft_User_Guide.docx[CDC Software Platform Connector Release Notes].
+* Access the link:release-notes.html[CDC Software Platform Connector Release Notes].

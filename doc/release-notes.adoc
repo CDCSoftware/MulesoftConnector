@@ -1,227 +1,94 @@
+////
+The following is the approved connector release notes template for documenting MuleSoft Supported Connectors.
+////
 
-:toc:               left
-:toc-title:         Connector Summary
-:toclevels:         2
-:last-update-label!:
-:docinfo:
-:source-highlighter: coderay
-:icons: font
+= <System_Name> Connector Release Notes
+////
+[<System_Name>: The system the connector connects to, at the other end of the mule runtime, i.e. SalesForce, Workday Financials]
+////
+:keywords: add_keywords_separated_by_commas
 
 
-= CDCSoftware Connector API Reference
+Sentences describing the connector's functionality and basic information that applies to all connector versions.
 
+link:/<System_Name>-connector[<System_Name> Connector User Guide]
+////
+Points to the docs.mulesoft pages for documentation on the functional aspects of the connector. e.g.: link:/mule-user-guide/v/3.8/connector-x[Connector X User Guide]
+////
 
-*Additional Info*
-[width="50", cols=".<60%,^40%" ]
-|======================
-| Requires Mule Enterprise License |  No icon:remove[]  {nbsp}
-| Requires Entitlement |  No icon:remove[]  {nbsp}
-| Mule Version | 3.6.0 or higher
-|======================
+== <Connector_Version> - <Release_date>
+////
+<Connector_Version> : Describes the connector version, such as “V2013”, “V4.0”, “V4.0.1-HF2” or whatever used for release]
+<Release_date> : The date on which the connector is released (not when the notes are written, mind you)
+////
 
+=== Version <Connector_Version> Compatibility
 
-== Configs
----
-=== Configuration
-`<cdc-software:config>`
+[%header%autowidth]
+|===
+|Software |Version
+|Mule Runtime |<Put_Minimum_Mule_Version_Here>
+|<Service_Or_App_Name> |<version>
+|===
 
+=== Migrating from Older Versions
+////
+optional
+////
+If you’re currently using connector <old_connector_version> to migrate to this connector you need to:
 
+- <step_1>
+- <step_2>
 
-`Configuration` 
+If you’re currently using a connector version <old_connector_version_2> this connector is not compatible. Don’t upgrade to this connector unless you are sure you do the following:
 
+- <step_3>
+- <step_4>
 
-==== Attributes
-[cols=".^20%,.^20%,.^35%,.^20%,^.^5%", options="header"]
-|======================
-| Name | Java Type | Description | Default Value | Required
-|name | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | The name of this configuration. With this name can be later referenced. | | *x*{nbsp}
-| domain | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++domain URL  (Ex: https://myserver)+++ |   | *x*{nbsp}
-| serverId | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++serverId (Ex: prod, test)+++ |   | *x*{nbsp}
-| user | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++user+++ |   | *x*{nbsp}
-| password | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++password+++ |   | *x*{nbsp}
-|======================
+<Step_1 to N should be clear instructions that pertain to the migration path from one connector to the other.
 
+//Examples might include
 
+//- Specifying which version of the runtime is needed for the new connector
+//- Changes in the version of the connected systems to be able to work
+//- When the connector suffers structural changes (i.e monolythic connectors now many update sites) we should also inform the split and why and how to update from one to //the other.
+//- Specific instructions if the connector is running in CloudHub (like changing the Mule Runtime version, etc)
+//- The first list of steps is for in-place upgrades, probably just updating via Maven or  Anypoint Studio  and re deploying.
+//- The second list is for the connectors that are older and require additional steps.
+//- Some of this might not apply (i.e. a connector is backwards compatible with all released versions or there is no previous version)
 
-== Processors
 
----
+=== Features
 
-=== Release call
-`<cdc-software:release-call>`
+. <Feature_Title> - A description of the feature
 
+//Example of a Feature listing:
 
+//NTLM Authentication - NTLM authentication is now more robust and widely compatible with more domain controller configurations.
 
+=== <Connector_Version> Fixed in this Release
 
-+++
-releaseCall
-+++
+- <Bug_Title> - <Conditions under which the bug used to happen, explain which was the result, which is now the fixed result>
 
+//Example of a Bug listing:
 
-    
-        
-==== Attributes
-[cols=".^20%,.^20%,.^35%,.^20%,^.^5%", options="header"]
-|======================
-|Name |Java Type | Description | Default Value | Required
-| config-ref | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | Specify which config to use | |*x*{nbsp}
+//- Asyncronous processing now works when invoking via an External interface - Previously, when invoking an asyncronous service, the call could end up in a deadlock unless //lock(object) was used. Now, the connector locks automatically and you don’t need to do it.
 
+//Example of what is NOT A BUG listing
 
+//- Fixed CLDCONNECT-XYZ (because projects are not public)
+//- Functional tests XYZ now work (because functional testing or any other part of the development process is not visible to customers)
+//- Increased Sonar coverage (ditto)
+//- Resolved NPE (lacking information like scenarios under which it can be reproduced, what is NPE, etc)
 
-| 
-call  | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++the callId to answer+++ |  | *x*{nbsp}
+=== <Connector_Version> Known Issues
 
+<Connector_Issues, use the same format as Bug listings>
 
-
-
-| 
-agentInstrument  | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++the extension used by agent+++ |  | *x*{nbsp}
-
-
-|======================
-
-==== Returns
-[cols=".^40%,.^60%", options="header"]
-|======================
-|Return Java Type | Description
-|+++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++OK if succesfull or error message+++
-|======================
-
-
-
-
----
-
-=== Answer call
-`<cdc-software:answer-call>`
-
-
-
-
-+++
-answerCall
-+++
-
-
-    
-        
-==== Attributes
-[cols=".^20%,.^20%,.^35%,.^20%,^.^5%", options="header"]
-|======================
-|Name |Java Type | Description | Default Value | Required
-| config-ref | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | Specify which config to use | |*x*{nbsp}
-
-
-
-| 
-call  | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++the callId to answer+++ |  | *x*{nbsp}
-
-
-
-
-| 
-agentInstrument  | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++the extension used by agent+++ |  | *x*{nbsp}
-
-
-|======================
-
-==== Returns
-[cols=".^40%,.^60%", options="header"]
-|======================
-|Return Java Type | Description
-|+++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++OK if succesfull or error message+++
-|======================
-
-
-
-
----
-
-=== Make call
-`<cdc-software:make-call>`
-
-
-
-
-+++
-makeCall
-+++
-
-
-    
-        
-==== Attributes
-[cols=".^20%,.^20%,.^35%,.^20%,^.^5%", options="header"]
-|======================
-|Name |Java Type | Description | Default Value | Required
-| config-ref | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | Specify which config to use | |*x*{nbsp}
-
-
-
-| 
-agentId  | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++the agent Id placing the call+++ |  | *x*{nbsp}
-
-
-
-
-| 
-phoneNumber  | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++the phone number to dial+++ |  | *x*{nbsp}
-
-
-|======================
-
-==== Returns
-[cols=".^40%,.^60%", options="header"]
-|======================
-|Return Java Type | Description
-|+++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | +++OK if succesfull or error message+++
-|======================
-
-
-
-
-
-
-
-== Sources
-
----
-
-=== Get events
-`<cdc-software:get-events>`
-
-
-
-
-+++
-getEvents
-+++
-
-
-    
-
-==== Attributes
-[cols=".^20%,.^20%,.^35%,.^20%,^.^5%", options="header"]
-|======================
-|Name |Java Type | Description | Default Value | Required
-| config-ref | +++<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">String</a>+++ | Specify which config to use | |*x*{nbsp}
-| callback | +++SourceCallback+++ | +++The sourcecallback used to dispatch message to the flow+++ |  | *x*{nbsp}
-|======================
-
-==== Returns
-[cols=".^40%,.^60%", options="header"]
-|======================
-|Return Java Type | Description
-|+++void+++ | ++++++
-|======================
-
-
-
-
-
-
-
-
-
-
-
+=== Support Resources
+////
+could also be named See Also
+////
+* Learn how to link:/mule-user-guide/v/3.8/installing-connectors[Install Anypoint Connectors] using Anypoint Exchange.
+* Access the link:http://forum.mulesoft.org/mulesoft[MuleSoft Forum] to pose questions and get help from Mule’s broad community of users.
+* To access MuleSoft’s expert support team, link:http://www.mulesoft.com/mule-esb-subscription[subscribe] and log in to MuleSoft’s link:http://www.mulesoft.com/support-login[Customer Portal].

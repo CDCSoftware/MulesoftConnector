@@ -5,7 +5,7 @@
 
 The Anypoint CDC Software Connector provides connectivity to the CDC Software API, enabling you to interface with CDC Software to retrieve telephony events and perform operations on more than a dozen telephony systems.
 
-link:/user-manual.html[CDC Software Connector User Guide]
+link:user-manual.html[CDC Software Connector User Guide]
 
 
 == v1.0.0 - 09-01-2017
@@ -62,5 +62,5 @@ CDC Software connector as an operation connector currently supports the followin
 
 === Support Resources
 
-* Learn how to link:/mule-user-guide/v/3.8/installing-connectors[Install Anypoint Connectors] using Anypoint Exchange.
+* Learn how to link:https://docs.mulesoft.com/mule-user-guide/v/3.8/installing-connectors[Install Anypoint Connectors] using Anypoint Exchange.
 * Contact mailto:support@cdcsoftware.com[CDC Software Support]

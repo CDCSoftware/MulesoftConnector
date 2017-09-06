@@ -1,3 +1,0 @@
-<!-- BEGIN_INCLUDE(cdc-software:greet) -->
-    <cdc-software:greet config-ref="" friend="#[map-payload:friend]" />
-<!-- END_INCLUDE(cdc-software:greet) -->

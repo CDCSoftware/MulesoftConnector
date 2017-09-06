@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:jetty="http://www.mulesoft.org/schema/mule/jetty" 
+xmlns:smtps="http://www.mulesoft.org/schema/mule/smtps" 
+xmlns:email="http://www.mulesoft.org/schema/mule/email" 
+xmlns:file="http://www.mulesoft.org/schema/mule/file" 
+xmlns:db="http://www.mulesoft.org/schema/mule/db" 
+xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" 
+xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" 
+xmlns:spring="http://www.springframework.org/schema/beans" 
+xmlns:json="http://www.mulesoft.org/schema/mule/json" 
+xmlns:http="http://www.mulesoft.org/schema/mule/http" 
+xmlns:cdc-software="http://www.mulesoft.org/schema/mule/cdc-software"
+xmlns:core="http://www.mulesoft.org/schema/mule/core" 
+xmlns:ajax="http://www.mulesoft.org/schema/mule/ajax" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/cdc-software http://www.mulesoft.org/schema/mule/cdc-software/current/mule-cdc-software.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ajax http://www.mulesoft.org/schema/mule/ajax/current/mule-ajax.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/smtps http://www.mulesoft.org/schema/mule/smtps/current/mule-smtps.xsd
+http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/current/mule-email.xsd
+http://www.mulesoft.org/schema/mule/jetty http://www.mulesoft.org/schema/mule/jetty/current/mule-jetty.xsd">
+
+
+
+    <cdc-software:config name="CDCSoftware__Connection_Management" username="${username}" password="${password}" domain="${domain}" serverId="${serverId}" doc:name="CDCSoftware: Connection Management"/>
+    
+    <ajax:connector name="Ajax" serverUrl="http://0.0.0.0:${http.port}/" resourceBase="${app.home}/classes/webApp" jsonCommented="true" doc:name="Ajax"/>
+    
+
+    <flow name="SoftphoneRequesstFlow">
+        <ajax:inbound-endpoint channel="/sofphone/request" connector-ref="Ajax" responseTimeout="10000" doc:name="Ajax"/>
+        <json:json-to-object-transformer returnClass="java.lang.Object" doc:name="JSON to Object"/>
+
+        <logger message="Requesting DTK agent #[message.payload.agentId] to dial #[message.payload.phone]" level="INFO" doc:name="Logger"/>
+        <choice doc:name="Choice">
+            <when expression="#[message.payload.request == 'releaseCall']">
+                <cdc-software:release-call config-ref="CDCSoftware__Connection_Management" agentInstrument="#[message.payload.agentInstrument]" call="#[message.payload.call]" doc:name="CDCSoftware Release Call"/>
+            </when>
+            <when expression="#[message.payload.request == 'answerCall']">
+                <cdc-software:answer-call config-ref="CDCSoftware__Connection_Management" agentInstrument="#[message.payload.agentInstrument]" call="#[message.payload.call]" doc:name="CDCSoftware Answer Call"/>
+            </when>
+            <otherwise>
+                <cdc-software:make-call config-ref="CDCSoftware__Connection_Management" agentId="#[message.payload.agentId]" phoneNumber="#[message.payload.phone]" doc:name="CDCSoftware make Call"/>
+            </otherwise>
+        </choice>
+    </flow>
+    <flow name="SotphoneEventsFlow">
+        <cdc-software:get-events config-ref="CDCSoftware__Connection_Management" doc:name="CDCSoftware (Streaming)"/>
+        <logger message="CDC Connector event: #[message.inboundProperties.event] payload #[message.payload]" level="INFO" doc:name="Logger All Events"/>
+        <ajax:outbound-endpoint channel="/cdcSoftwareConnector/events" connector-ref="Ajax" responseTimeout="10000" doc:name="Ajax"/>
+    </flow>
+    <flow name="CallEndEmailFlow">
+        <cdc-software:get-events config-ref="CDCSoftware__Connection_Management" doc:name="CDCSoftware (Streaming)"/>
+        <expression-filter expression="#[message.inboundProperties.event=='DTK_EXT_TELEPHONY_CALL_ENDED']" doc:name="If event is CALL_ENDED"/>
+        <custom-transformer class="muleproject1.CRMSimulator" doc:name="CRM Simulator"/>
+        <logger message="CRM User Phone #[message.inboundProperties.phone] Search result Name: #[message.outboundProperties.name] Email: #[message.outboundProperties.email]" level="INFO" doc:name="Logger "/>
+        <expression-filter expression="#[message.outboundProperties.email!='notfound']" doc:name="If Email found"/>
+        <custom-transformer class="muleproject1.EmailGenerator" doc:name="Generate Email"/>
+        <smtps:outbound-endpoint host="smtp.gmail.com" port="465" user="mulesoft.cdcsoftware@gmail.com" password="mulesoft1234" to="#[message.outboundProperties.email]" from="CDC@cdcsoftware.com" subject="Thank you for your call" responseTimeout="10000"  doc:name="SMTP" cc="mulesoft.cdcsoftware@gmail.com"/>
+    </flow>
+
+</mule>

@@ -1,0 +1,66 @@
+
+= CDC Software Platform Connector Release Notes
+
+:keywords: CDC Software, Telephony, CTI
+
+The Anypoint CDC Software Connector provides connectivity to the CDC Software API, enabling you to interface with CDC Software to retrieve telephony events and perform operations on more than a dozen telephony systems.
+
+link:user-manual.html[CDC Software Connector User Guide]
+
+
+== v1.0.0 - 09-01-2017
+Initial release of Anypoint CDC Software Connector.
+
+=== Version v1.0.0 Compatibility
+
+[%header%autowidth]
+|===
+|Software |Version
+|CDC Platform |1.0 or later.
+|Mule Runtime |3.6.0
+|Asterisk and Asterisk based systems |FreePBX and similar
+|Broadsoft |eXtended Serveices Interface (XSI)
+|Alcatel-Lucent OMNI | CSTA Compliant Versions
+|Avaya Aura |Application Enablement Services 5.0 or above
+|Avaya Aura |Avaya Communications Control Toolkit
+|Avaya IP Office | CTI Link Pro 8.x and above
+|Cisco CUCM |7.5 and above
+|Cisco UCCE |7.5 and above
+|Cisco UCCX |7.5 and above
+|InContact |Webservices API
+|Mitel |Open Integration Gateway 3.0 and above
+|Mitel |TAPI Compatible
+|ShoreTel |Webservices API
+|Switchvox |Triggers over HTTP
+|Vonage Business |HTTP API
+|Other systems |TAPI, CSTA, or TSAPI
+|===
+
+
+=== Features
+
+CDC Software connector as a stream connector currently supports the following list of operations:
+
+- Get Events
+
+CDC Software connector as an operation connector currently supports the following list of operations:
+
+- Make Call
+- Answer Call
+- Release Call
+
+
+=== v1.0.0 Fixed in this Release
+
+- Initial Release - Initial release.  No specific bug fixes included.
+
+
+=== v1.0.0 Known Issues
+
+- Core Operations - No hold or transfer operations in this version.
+
+
+=== Support Resources
+
+* Learn how to link:https://docs.mulesoft.com/mule-user-guide/v/3.8/installing-connectors[Install Anypoint Connectors] using Anypoint Exchange.
+* Contact mailto:support@cdcsoftware.com[CDC Software Support]

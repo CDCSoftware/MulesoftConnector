@@ -1,94 +1,66 @@
-////
-The following is the approved connector release notes template for documenting MuleSoft Supported Connectors.
-////
 
-= <System_Name> Connector Release Notes
-////
-[<System_Name>: The system the connector connects to, at the other end of the mule runtime, i.e. SalesForce, Workday Financials]
-////
-:keywords: add_keywords_separated_by_commas
+= CDC Software Platform Connector Release Notes
+
+:keywords: CDC Software, Telephony, CTI
+
+The Anypoint CDC Software Connector provides connectivity to the CDC Software API, enabling you to interface with CDC Software to retrieve telephony events and perform operations on more than a dozen telephony systems.
+
+link:/user-manual.html[CDC Software Connector User Guide]
 
 
-Sentences describing the connector's functionality and basic information that applies to all connector versions.
+== v1.0.0 - 09-01-2017
+Initial release of Anypoint CDC Software Connector.
 
-link:/<System_Name>-connector[<System_Name> Connector User Guide]
-////
-Points to the docs.mulesoft pages for documentation on the functional aspects of the connector. e.g.: link:/mule-user-guide/v/3.8/connector-x[Connector X User Guide]
-////
-
-== <Connector_Version> - <Release_date>
-////
-<Connector_Version> : Describes the connector version, such as “V2013”, “V4.0”, “V4.0.1-HF2” or whatever used for release]
-<Release_date> : The date on which the connector is released (not when the notes are written, mind you)
-////
-
-=== Version <Connector_Version> Compatibility
+=== Version v1.0.0 Compatibility
 
 [%header%autowidth]
 |===
 |Software |Version
-|Mule Runtime |<Put_Minimum_Mule_Version_Here>
-|<Service_Or_App_Name> |<version>
+|CDC Platform |1.0 or later.
+|Mule Runtime |3.6.0
+|Asterisk and Asterisk based systems |FreePBX and similar
+|Broadsoft |eXtended Serveices Interface (XSI)
+|Alcatel-Lucent OMNI | CSTA Compliant Versions
+|Avaya Aura |Application Enablement Services 5.0 or above
+|Avaya Aura |Avaya Communications Control Toolkit
+|Avaya IP Office | CTI Link Pro 8.x and above
+|Cisco CUCM |7.5 and above
+|Cisco UCCE |7.5 and above
+|Cisco UCCX |7.5 and above
+|InContact |Webservices API
+|Mitel |Open Integration Gateway 3.0 and above
+|Mitel |TAPI Compatible
+|ShoreTel |Webservices API
+|Switchvox |Triggers over HTTP
+|Vonage Business |HTTP API
+|Other systems |TAPI, CSTA, or TSAPI
 |===
-
-=== Migrating from Older Versions
-////
-optional
-////
-If you’re currently using connector <old_connector_version> to migrate to this connector you need to:
-
-- <step_1>
-- <step_2>
-
-If you’re currently using a connector version <old_connector_version_2> this connector is not compatible. Don’t upgrade to this connector unless you are sure you do the following:
-
-- <step_3>
-- <step_4>
-
-<Step_1 to N should be clear instructions that pertain to the migration path from one connector to the other.
-
-//Examples might include
-
-//- Specifying which version of the runtime is needed for the new connector
-//- Changes in the version of the connected systems to be able to work
-//- When the connector suffers structural changes (i.e monolythic connectors now many update sites) we should also inform the split and why and how to update from one to //the other.
-//- Specific instructions if the connector is running in CloudHub (like changing the Mule Runtime version, etc)
-//- The first list of steps is for in-place upgrades, probably just updating via Maven or  Anypoint Studio  and re deploying.
-//- The second list is for the connectors that are older and require additional steps.
-//- Some of this might not apply (i.e. a connector is backwards compatible with all released versions or there is no previous version)
 
 
 === Features
 
-. <Feature_Title> - A description of the feature
+CDC Software connector as a stream connector currently supports the following list of operations:
 
-//Example of a Feature listing:
+- Get Events
 
-//NTLM Authentication - NTLM authentication is now more robust and widely compatible with more domain controller configurations.
+CDC Software connector as an operation connector currently supports the following list of operations:
 
-=== <Connector_Version> Fixed in this Release
+- Make Call
+- Answer Call
+- Release Call
 
-- <Bug_Title> - <Conditions under which the bug used to happen, explain which was the result, which is now the fixed result>
 
-//Example of a Bug listing:
+=== v1.0.0 Fixed in this Release
 
-//- Asyncronous processing now works when invoking via an External interface - Previously, when invoking an asyncronous service, the call could end up in a deadlock unless //lock(object) was used. Now, the connector locks automatically and you don’t need to do it.
+- Initial Release - Initial release.  No specific bug fixes included.
 
-//Example of what is NOT A BUG listing
 
-//- Fixed CLDCONNECT-XYZ (because projects are not public)
-//- Functional tests XYZ now work (because functional testing or any other part of the development process is not visible to customers)
-//- Increased Sonar coverage (ditto)
-//- Resolved NPE (lacking information like scenarios under which it can be reproduced, what is NPE, etc)
+=== v1.0.0 Known Issues
 
-=== <Connector_Version> Known Issues
+- Core Operations - No hold or transfer operations in this version.
 
-<Connector_Issues, use the same format as Bug listings>
 
 === Support Resources
-////
-could also be named See Also
-////
+
 * Learn how to link:/mule-user-guide/v/3.8/installing-connectors[Install Anypoint Connectors] using Anypoint Exchange.
-* Access the link:http://forum.mulesoft.org/mulesoft[MuleSoft Forum] to pose questions and get help from Mule’s broad community of users.
-* To access MuleSoft’s expert support team, link:http://www.mulesoft.com/mule-esb-subscription[subscribe] and log in to MuleSoft’s link:http://www.mulesoft.com/support-login[Customer Portal].
+* Contact mailto:support@cdcsoftware.com[CDC Software Support]

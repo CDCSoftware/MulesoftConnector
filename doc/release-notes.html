@@ -5,8 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
-<meta name="keywords" content="add_keywords_separated_by_commas">
-<title>&lt;System_Name&gt; Connector Release Notes</title>
+<title>CDC Software Platform Connector Release Notes</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -428,24 +427,27 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>&lt;System_Name&gt; Connector Release Notes</h1>
+<h1>CDC Software Platform Connector Release Notes</h1>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Sentences describing the connector&#8217;s functionality and basic information that applies to all connector versions.</p>
+<p>The Anypoint CDC Software Connector provides connectivity to the CDC Software API, enabling you to interface with CDC Software to retrieve telephony events and perform operations on more than a dozen telephony systems.</p>
 </div>
 <div class="paragraph">
-<p><a href="/&lt;System_Name&gt;-connector">&lt;System_Name&gt; Connector User Guide</a></p>
+<p><a href="/user-manual.html">CDC Software Connector User Guide</a></p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_connector_version_release_date">&lt;Connector_Version&gt; - &lt;Release_date&gt;</h2>
+<h2 id="_v1_0_0_09_01_2017">v1.0.0 - 09-01-2017</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Initial release of Anypoint CDC Software Connector.</p>
+</div>
 <div class="sect2">
-<h3 id="_version_connector_version_compatibility">Version &lt;Connector_Version&gt; Compatibility</h3>
+<h3 id="_version_v1_0_0_compatibility">Version v1.0.0 Compatibility</h3>
 <table class="tableblock frame-all grid-all">
 <colgroup>
 <col>
@@ -459,72 +461,127 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Mule Runtime</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;Put_Minimum_Mule_Version_Here&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CDC Platform</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0 or later.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;Service_Or_App_Name&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;version&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mule Runtime</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.6.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Asterisk and Asterisk based systems</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FreePBX and similar</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Broadsoft</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">eXtended Serveices Interface (XSI)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alcatel-Lucent OMNI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CSTA Compliant Versions</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Avaya Aura</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Application Enablement Services 5.0 or above</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Avaya Aura</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Avaya Communications Control Toolkit</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Avaya IP Office</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CTI Link Pro 8.x and above</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cisco CUCM</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7.5 and above</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cisco UCCE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7.5 and above</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cisco UCCX</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7.5 and above</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">InContact</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Webservices API</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mitel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Open Integration Gateway 3.0 and above</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mitel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TAPI Compatible</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ShoreTel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Webservices API</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Switchvox</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Triggers over HTTP</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Vonage Business</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP API</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Other systems</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TAPI, CSTA, or TSAPI</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_migrating_from_older_versions">Migrating from Older Versions</h3>
-<div class="paragraph">
-<p>If you’re currently using connector &lt;old_connector_version&gt; to migrate to this connector you need to:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>&lt;step_1&gt;</p>
-</li>
-<li>
-<p>&lt;step_2&gt;</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>If you’re currently using a connector version &lt;old_connector_version_2&gt; this connector is not compatible. Don’t upgrade to this connector unless you are sure you do the following:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>&lt;step_3&gt;</p>
-</li>
-<li>
-<p>&lt;step_4&gt;</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>&lt;Step_1 to N should be clear instructions that pertain to the migration path from one connector to the other.</p>
-</div>
-</div>
-<div class="sect2">
 <h3 id="_features">Features</h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>&lt;Feature_Title&gt; - A description of the feature</p>
-</li>
-</ol>
+<div class="paragraph">
+<p>CDC Software connector as a stream connector currently supports the following list of operations:</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_connector_version_fixed_in_this_release">&lt;Connector_Version&gt; Fixed in this Release</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>&lt;Bug_Title&gt; - &lt;Conditions under which the bug used to happen, explain which was the result, which is now the fixed result&gt;</p>
+<p>Get Events</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>CDC Software connector as an operation connector currently supports the following list of operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make Call</p>
+</li>
+<li>
+<p>Answer Call</p>
+</li>
+<li>
+<p>Release Call</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_connector_version_known_issues">&lt;Connector_Version&gt; Known Issues</h3>
-<div class="paragraph">
-<p>&lt;Connector_Issues, use the same format as Bug listings&gt;</p>
+<h3 id="_v1_0_0_fixed_in_this_release">v1.0.0 Fixed in this Release</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Initial Release - Initial release.  No specific bug fixes included.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_v1_0_0_known_issues">v1.0.0 Known Issues</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Core Operations - No hold or transfer operations in this version.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -535,10 +592,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Learn how to <a href="/mule-user-guide/v/3.8/installing-connectors">Install Anypoint Connectors</a> using Anypoint Exchange.</p>
 </li>
 <li>
-<p>Access the <a href="http://forum.mulesoft.org/mulesoft">MuleSoft Forum</a> to pose questions and get help from Mule’s broad community of users.</p>
-</li>
-<li>
-<p>To access MuleSoft’s expert support team, <a href="http://www.mulesoft.com/mule-esb-subscription">subscribe</a> and log in to MuleSoft’s <a href="http://www.mulesoft.com/support-login">Customer Portal</a>.</p>
+<p>Contact <a href="mailto:support@cdcsoftware.com">CDC Software Support</a></p>
 </li>
 </ul>
 </div>
@@ -548,7 +602,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-04-28 16:58:11 Eastern Daylight Time
+Last updated 2017-09-05 19:57:37 Eastern Daylight Time
 </div>
 </div>
 </body>

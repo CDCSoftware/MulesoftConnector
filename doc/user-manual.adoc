@@ -3,25 +3,17 @@ The following is the approved connector user guide template for documenting Mule
 ////
 
 = CDC Software Platform Connector
-:keywords: add_keywords_separated_by_commas
+:keywords: CDC Software, Telephony, CTI
 :imagesdir: ./_images
 :toc: macro
 :toclevels: 2
-////
-Image names follow "image:". Identify images using the connector name, preferably without the word "connector"
-URLs should always follow "link:"
-////
-
-// Dropdown for Connector Version
-//  Children: Technical Reference / Demos
 
 toc::[]
 
 [[overview]]
 == Overview
 
-The Anypoint CDC Software Connector provides connectivity to the CDC Software API, enabling you to interface with CDC Software to retrieve telephony events and perform operations on more than a dozen telephony systems..
-//Global rule: the word "connector" should be lower case except when appearing in titles, important URL anchors, and after a MuleSoft tradename such as "Anypoint".
+The Anypoint CDC Software Connector provides connectivity to the CDC Software API, enabling you to interface with CDC Software to retrieve telephony events and perform operations on more than a dozen telephony systems.
 
 Read through this user guide to understand how to set up and configure a basic flow using the connector.
 
@@ -86,7 +78,6 @@ image::cdc_software_platform_global_types_002.jpg[Global Types]
 image::cdc_software_platform_server_003.jpg[Global Server]
 
 image::cdc_software_platform_security_004.jpg[Global Security]
-
 
 [%header%autowidth.spread]
 |===
